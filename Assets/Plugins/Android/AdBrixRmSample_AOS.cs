@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
@@ -82,7 +82,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			DateTime dt = DateTime.UtcNow;
 
 
-			AdBrixRm.events("unityEvent", Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.events("unityEvent");
 		
 		}
 		lowCnt++;
@@ -97,7 +97,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.events ("unityEventSub", dict);
 
 			//event - event name, event's detail dictionary, event timestamp
-			AdBrixRm.events("unityEventSub", dict, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.events("unityEventSub", dict);
 		}
 		lowCnt++;
 		calCnt++;
@@ -125,7 +125,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
             ////login - userid, event timestamp
             //DateTime dt = DateTime.UtcNow;
-            AdBrixRm.login ("igaworks", Convert.ToInt64(DateTime.UtcNow.Millisecond));
+            AdBrixRm.login ("igaworks");
 
 		}
 		lowCnt++;
@@ -150,7 +150,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//view home - view home event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceViewHome (Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceViewHome();
 
 
 			//view home - commerce extra attributes, event timestamp
@@ -161,7 +161,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			commerceExtraAttrs.Add ("Att4", "Value4");
 			commerceExtraAttrs.Add ("Att5", "Value5");
 
-			AdBrixRm.commerceViewHome(commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceViewHome(commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -205,8 +205,8 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//CategoryView - category, products, commerce extra attributes
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceCategoryView (AdBrixRm.AdBrixRmCommerceProductCategoryModel.create("sale"), productList, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
-			AdBrixRm.commerceCategoryView (AdBrixRm.AdBrixRmCommerceProductCategoryModel.create("sale", "summer"), productList, Convert.ToInt64(DateTime.UtcNow.Millisecond));	
+			AdBrixRm.commerceCategoryView (AdBrixRm.AdBrixRmCommerceProductCategoryModel.create("sale"), productList, commerceExtraAttrs);
+			AdBrixRm.commerceCategoryView (AdBrixRm.AdBrixRmCommerceProductCategoryModel.create("sale", "summer"), productList);	
 				
 		}
 		lowCnt++;
@@ -238,7 +238,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//product view - product, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceProductView (productModel, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceProductView (productModel);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -252,7 +252,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceProductView (productModel, commerceExtraAttrs);
 
 			//product view - product, commerce extra attributes, event timestamp
-			AdBrixRm.commerceProductView (productModel, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceProductView (productModel, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -288,7 +288,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//addToCart - product, commerce extra attributes, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceAddToCart (items, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceAddToCart (items);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -302,7 +302,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceAddToCart (items, commerceExtraAttrs);
 
 			//addToCart - product, commerce extra attributes, event timestamp
-			AdBrixRm.commerceAddToCart (items, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceAddToCart (items, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -362,7 +362,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceAddToCart (items, commerceExtraAttrs);
 
 			//addToCart - products, commerce extra attributes, event timestamp
-			AdBrixRm.commerceAddToCart (items, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceAddToCart (items, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -393,7 +393,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//addToWishList - products, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceAddToWishList (productModel, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceAddToWishList (productModel);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -407,7 +407,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceAddToWishList (productModel, commerceExtraAttrs);
 
 			//addToWishList - products, commerce extra attributes, event timestamp
-			AdBrixRm.commerceAddToWishList (productModel, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceAddToWishList (productModel, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -443,7 +443,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//ReviewOrder - order id, product, discount, delivery charge, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -457,7 +457,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, commerceExtraAttrs);
 
 			//ReviewOrder - order id, product, discount, delivery charge, commerce extra attributes, event timestamp
-			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -503,7 +503,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//ReviewOrder - order id, products, discount, delivery charge, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -517,7 +517,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, commerceExtraAttrs);
 
 			//ReviewOrder - order id, products, discount, delivery charge, commerce extra attributes, event timestamp
-			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceReviewOrder ("30290121", items, 1000.00, 3500.00, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -555,7 +555,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//Refund - order id, product, penalty charge, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceRefund ("30290121", items, 3500.00, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceRefund ("30290121", items, 3500.00);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -569,7 +569,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceRefund ("30290121", items, 3500.00, commerceExtraAttrs);
 
 			//Refund - order id, product, penalty charge, commerce extra attributes, event timestamp
-			AdBrixRm.commerceRefund ("30290121", items, 3500.00, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceRefund ("30290121", items, 3500.00, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -616,7 +616,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//Refund - order id, products, penalty charge, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceRefund ("30290121", items, 3500.00, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceRefund ("30290121", items, 3500.00);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -630,7 +630,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceRefund ("30290121", items, 3500.00, commerceExtraAttrs);
 
 			//Refund - order id, products, penalty charge, commerce extra attributes, event timestamp
-			AdBrixRm.commerceRefund ("30290121", items, 3500.00, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceRefund ("30290121", items, 3500.00, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -677,7 +677,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//Refund - keyword, products, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceSearch ("nike", items, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceSearch ("nike", items);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -691,7 +691,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceSearch ("nike", items, commerceExtraAttrs);
 
 			//Refund - keyword, products, commerce extra attributes, event timestamp
-			AdBrixRm.commerceSearch ("nike", items, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceSearch ("nike", items, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -723,7 +723,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//Refund - AdBrixRm.SharingChannel, product, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceShare (AdBrixRm.SharingChannel.KAKAOTALK, productModel, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceShare (AdBrixRm.SharingChannel.KAKAOTALK, productModel);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -737,7 +737,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceShare (AdBrixRm.SharingChannel.KAKAOTALK, productModel, commerceExtraAttrs);
 
 			//Refund - AdBrixRm.SharingChannel, product, commerce extra attributes, event timestamp
-			AdBrixRm.commerceShare (AdBrixRm.SharingChannel.KAKAOTALK, productModel, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceShare (AdBrixRm.SharingChannel.KAKAOTALK, productModel, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -782,7 +782,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//commerceListView - keyword, products, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceListView (items, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceListView (items);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -794,7 +794,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceListView (items, commerceExtraAttrs);
 
 			//commerceListView - keyword, products, commerce extra attributes, event timestamp
-			AdBrixRm.commerceListView (items, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceListView (items, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -838,7 +838,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//commerceCartView - products, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commerceCartView (items, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceCartView (items);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -850,7 +850,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commerceCartView (items, commerceExtraAttrs);
 
 			//commerceCartView - products, commerce extra attributes, event timestamp
-			AdBrixRm.commerceCartView (items, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commerceCartView (items, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;
@@ -863,16 +863,16 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//commercePaymentInfoAdded event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commercePaymentInfoAdded (Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commercePaymentInfoAdded ();
 
 
 			//commercePaymentInfoAdded - commerce extra attributes, event timestamp
-			Dictionary<string, string> commerceExtraAttrs = new Dictionary<string, string>();
+			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
 			commerceExtraAttrs.Add ("Att1", "Value1");
 			commerceExtraAttrs.Add ("Att2", "Value2");
 			commerceExtraAttrs.Add ("Att3", "Value3");
 
-			AdBrixRm.commercePaymentInfoAdded(commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commercePaymentInfoAdded(commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -887,18 +887,18 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//gameTutorialCompleted event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.gameTutorialCompleted (is_skip, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameTutorialCompleted (is_skip);
 
 
 			//commercePaymentInfoAdded - extra attributes, event timestamp
-			Dictionary<string, string> extraAttrs = new Dictionary<string, string>();
+			Dictionary<string, object> extraAttrs = new Dictionary<string, object>();
 			extraAttrs.Add ("Att1", "Value1");
 			extraAttrs.Add ("Att2", "Value2");
 			extraAttrs.Add ("Att3", "Value3");
 
-			AdBrixRm.gameTutorialCompleted(is_skip, extraAttrs);
+			AdBrixRm.gameTutorialCompleted(is_skip);
 
-			AdBrixRm.gameTutorialCompleted(is_skip, extraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameTutorialCompleted(is_skip, extraAttrs);
 
 		}
 		lowCnt++;
@@ -913,18 +913,18 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//gameLevelAchieved event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.gameLevelAchieved (level, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameLevelAchieved (level);
 
 
 			//gameLevelAchieved -  extra attributes, event timestamp
-			Dictionary<string, string> extraAttrs = new Dictionary<string, string>();
+			Dictionary<string, object> extraAttrs = new Dictionary<string, object>();
 			extraAttrs.Add ("Att1", "Value1");
 			extraAttrs.Add ("Att2", "Value2");
 			extraAttrs.Add ("Att3", "Value3");
 
 			AdBrixRm.gameLevelAchieved(level, extraAttrs);
 
-			AdBrixRm.gameLevelAchieved(level, extraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameLevelAchieved(level, extraAttrs);
 
 		}
 		lowCnt++;
@@ -938,18 +938,18 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//gameLevelAchieved event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.gameCharacterCreated (Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameCharacterCreated ();
 
 
 			//gameLevelAchieved -  extra attributes, event timestamp
-			Dictionary<string, string> extraAttrs = new Dictionary<string, string>();
+			Dictionary<string, object> extraAttrs = new Dictionary<string, object>();
 			extraAttrs.Add ("Att1", "Value1");
 			extraAttrs.Add ("Att2", "Value2");
 			extraAttrs.Add ("Att3", "Value3");
 
 			AdBrixRm.gameCharacterCreated(extraAttrs);
 
-			AdBrixRm.gameCharacterCreated(extraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameCharacterCreated(extraAttrs);
 
 		}
 		lowCnt++;
@@ -963,18 +963,18 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//gameLevelAchieved event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.gameStageCleared (stageName, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameStageCleared (stageName);
 
 
 			//gameLevelAchieved -  extra attributes, event timestamp
-			Dictionary<string, string> extraAttrs = new Dictionary<string, string>();
+			Dictionary<string, object> extraAttrs = new Dictionary<string, object>();
 			extraAttrs.Add ("Att1", "Value1");
 			extraAttrs.Add ("Att2", "Value2");
 			extraAttrs.Add ("Att3", "Value3");
 
 			AdBrixRm.gameStageCleared(stageName, extraAttrs);
 
-			AdBrixRm.gameStageCleared(stageName, extraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.gameStageCleared(stageName, extraAttrs);
 
 		}
 		lowCnt++;
@@ -1012,7 +1012,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//Purchase - order id, product, discount, delivery charge, AdBrixRm.PaymentMethod, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -1024,7 +1024,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, commerceExtraAttrs);
 
 			//Purchase - order id, product, discount, delivery charge, AdBrixRm.PaymentMethod, commerce extra attributes, event timestamp
-			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, commerceExtraAttrs);
 
 		}
 		lowCnt++;
@@ -1069,7 +1069,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 
 			//Purchase - order id, products, discount, delivery charge, AdBrixRm.PaymentMethod, event timestamp
 			DateTime dt = DateTime.UtcNow;
-			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard);
 
 
 			Dictionary<string, object> commerceExtraAttrs = new Dictionary<string, object>();
@@ -1081,7 +1081,7 @@ public class AdBrixRmSample_AOS : MonoBehaviour {
 			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, commerceExtraAttrs);
 
 			//Purchase - order id, products, discount, delivery charge, AdBrixRm.PaymentMethod, commerce extra attributes, event timestamp
-			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, commerceExtraAttrs, Convert.ToInt64(DateTime.UtcNow.Millisecond));
+			AdBrixRm.commonPurchase ("30290121", items, 1000.00, 3500.00, AdBrixRm.PaymentMethod.CreditCard, commerceExtraAttrs);
 		}
 		lowCnt++;
 		calCnt++;

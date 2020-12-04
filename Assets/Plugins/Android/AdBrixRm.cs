@@ -1,4 +1,4 @@
-﻿
+
 //using IgaworksUnityAOS.IgawLiveOpsPopupEventManager;
 using UnityEngine;
 using System;
@@ -330,28 +330,11 @@ namespace AdBrixRmAOS {
 
 		}
 
-		public static void events(string eventName, long timestamp) {
-			#if UNITY_ANDROID && !UNITY_EDITOR
-				_igaworksUnityPluginAosClass.CallStatic("event", eventName, timestamp);
-			#endif
-
-		}
-
 		public static void events(string eventName, Dictionary<string, object> value) {
 			
 			#if UNITY_ANDROID && !UNITY_EDITOR
 				if (value != null) {
 					_igaworksUnityPluginAosClass.CallStatic("event", eventName, MiniJson_aos.Serialize(value));
-				}
-			#endif
-
-		}
-
-		public static void events(string eventName, Dictionary<string, object> value, long timestamp) {
-			#if UNITY_ANDROID && !UNITY_EDITOR
-				if (value != null) {
-				_igaworksUnityPluginAosClass.CallStatic("event", eventName, MiniJson_aos.Serialize(value), timestamp);
-
 				}
 			#endif
 
@@ -374,15 +357,6 @@ namespace AdBrixRmAOS {
             #endif
         }
 
-        public static void login(string userId, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-				_igaworksUnityPluginAosClass.CallStatic("login", userId, timeStamp);
-			#endif 
-
-		}
-
 
 		//start of COMMERCE --
 		public static void commerceViewHome() {
@@ -390,14 +364,6 @@ namespace AdBrixRmAOS {
 				Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID              
 				_igaworksUnityPluginAosClass.CallStatic("commerceViewHome");
-			#endif 
-		}
-
-		public static void commerceViewHome(long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-				_igaworksUnityPluginAosClass.CallStatic("commerceViewHome", timeStamp);
 			#endif 
 		}
 
@@ -409,13 +375,6 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void commerceViewHome(Dictionary<string, object> extraAttr,  long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID           
-				_igaworksUnityPluginAosClass.CallStatic("commerceViewHome", MiniJson_aos.Serialize (extraAttr), timeStamp);
-			#endif 
-		}
 
 		public static void commerceCategoryView(AdBrixRmCommerceProductCategoryModel category, List<AdBrixRmCommerceProductModel> productInfo) {
 			#if UNITY_EDITOR
@@ -457,45 +416,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-		public static void commerceCategoryView(AdBrixRmCommerceProductCategoryModel category, List<AdBrixRmCommerceProductModel> productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceCategoryView", category.getCategoryFullString(), jsonDataString, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceCategoryViewBulk", category.getCategoryFullString(), jsonDataString, timeStamp);
-
-					}
-				}
-			}
-			else {
-				_igaworksUnityPluginAosClass.CallStatic("commerceCategoryView", category.getCategoryFullString(), null, timeStamp);
-			}
-			#endif
-		}
 
 		public static void commerceCategoryView(AdBrixRmCommerceProductCategoryModel category, List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr) {
 
@@ -540,49 +460,6 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void commerceCategoryView(AdBrixRmCommerceProductCategoryModel category, List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr, long timeStamp) {
-
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID 
-
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceCategoryView", category.getCategoryFullString(), jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceCategoryViewBulk", category.getCategoryFullString(), jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			else {
-				_igaworksUnityPluginAosClass.CallStatic("commerceCategoryView", category.getCategoryFullString(), null, MiniJson_aos.Serialize (extraAttr));
-			}
-
-			#endif 
-		}
-
 		public static void commerceProductView(AdBrixRmCommerceProductModel productInfo) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
@@ -601,24 +478,6 @@ namespace AdBrixRmAOS {
 
 		}
 
-		public static void commerceProductView(AdBrixRmCommerceProductModel productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-				if (productInfo == null) {					
-					Debug.Log("igaworks:productView >> Null or Empty Item");
-					return;
-				}
-							
-				string jsonDataString = "[";
-				jsonDataString = jsonDataString + stringifyCommerceItem (productInfo) + "]";
-				_igaworksUnityPluginAosClass.CallStatic("commerceProductView", jsonDataString, timeStamp);
-				
-			#endif 
-
-		}
-
-
 		public static void commerceProductView(AdBrixRmCommerceProductModel productInfo, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
@@ -634,24 +493,6 @@ namespace AdBrixRmAOS {
 				_igaworksUnityPluginAosClass.CallStatic("commerceProductView", jsonDataString, MiniJson_aos.Serialize (extraAttr));
 			#endif 
 		}
-
-
-		public static void commerceProductView(AdBrixRmCommerceProductModel productInfo, Dictionary<string, object> extraAttr,  long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID           
-				if (productInfo == null) {					
-					Debug.Log("igaworks:productView >> Null or Empty Item");
-					return;
-				}
-
-
-				string jsonDataString = "[";
-				jsonDataString = jsonDataString + stringifyCommerceItem (productInfo) + "]";
-				_igaworksUnityPluginAosClass.CallStatic("commerceProductView", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-			#endif 
-		}
-
 
 		public static void commerceAddToCart(List<AdBrixRmCommerceProductModel> productInfo) {
 			#if UNITY_EDITOR
@@ -690,44 +531,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-		public static void commerceAddToCart(List<AdBrixRmCommerceProductModel> productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceAddToCart", jsonDataString, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceAddToCartBulk", jsonDataString, timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
 		public static void commerceAddToCart(List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
@@ -765,46 +568,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-
-		public static void commerceAddToCart(List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr,  long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceAddToCart", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceAddToCartBulk", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
-
 		public static void commerceAddToWishList(AdBrixRmCommerceProductModel productInfo) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
@@ -819,24 +582,6 @@ namespace AdBrixRmAOS {
 			jsonDataString = jsonDataString + stringifyCommerceItem (productInfo) + "]";
 
 			_igaworksUnityPluginAosClass.CallStatic("commerceAddToWishList", jsonDataString);
-			#endif
-		}
-
-
-		public static void commerceAddToWishList(AdBrixRmCommerceProductModel productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if (productInfo == null) {					
-				Debug.Log("igaworks:productView >> Null or Empty Item");
-				return;
-			}
-
-
-			string jsonDataString = "[";
-			jsonDataString = jsonDataString + stringifyCommerceItem (productInfo) + "]";
-
-			_igaworksUnityPluginAosClass.CallStatic("commerceAddToWishList", jsonDataString, timeStamp);
 			#endif
 		}
 
@@ -855,25 +600,6 @@ namespace AdBrixRmAOS {
 			_igaworksUnityPluginAosClass.CallStatic("commerceAddToWishList", jsonDataString, MiniJson_aos.Serialize (extraAttr));
 			#endif
 		}
-
-
-		public static void commerceAddToWishList(AdBrixRmCommerceProductModel productInfo, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if (productInfo == null) {					
-				Debug.Log("igaworks:productView >> Null or Empty Item");
-				return;
-			}
-
-			string jsonDataString = "[";
-			jsonDataString = jsonDataString + stringifyCommerceItem (productInfo) + "]";
-
-			_igaworksUnityPluginAosClass.CallStatic("commerceAddToWishList", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-			#endif
-		}
-
-
 
 		public static void commerceReviewOrder(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double discount,  double deliveryCharge) {
 			#if UNITY_EDITOR
@@ -905,44 +631,6 @@ namespace AdBrixRmAOS {
 							}
 						}
 						_igaworksUnityPluginAosClass.CallStatic("commerceReviewOrderBulk", orderId, jsonDataString, discount, deliveryCharge);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
-		public static void commerceReviewOrder(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double discount, double deliveryCharge, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceReviewOrder", orderId, jsonDataString, discount, deliveryCharge, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceReviewOrderBulk", orderId, jsonDataString, discount, deliveryCharge, timeStamp);
 
 					}
 				}
@@ -987,50 +675,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-
-		public static void commerceReviewOrder(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double discount, double deliveryCharge, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceReviewOrder", orderId, jsonDataString, discount, deliveryCharge, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceReviewOrderBulk", orderId, jsonDataString, discount, deliveryCharge, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
-
-
-
-
-
 		//Refund
 		public static void commerceRefund(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double penaltyCharge) {
 			#if UNITY_EDITOR
@@ -1069,45 +713,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-
-		public static void commerceRefund(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double penaltyCharge, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceRefund", orderId, jsonDataString, penaltyCharge, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceRefundBulk", orderId, jsonDataString, penaltyCharge, timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
 		public static void commerceRefund(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double penaltyCharge, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
@@ -1144,48 +749,6 @@ namespace AdBrixRmAOS {
 			}
 			#endif
 		}
-
-
-		public static void commerceRefund(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double penaltyCharge, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceRefund", orderId, jsonDataString, penaltyCharge, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceRefundBulk", orderId, jsonDataString, penaltyCharge, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
-
-
 
 		//Search
 		public static void commerceSearch(string keyword, List<AdBrixRmCommerceProductModel> productInfo) {
@@ -1225,45 +788,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-
-		public static void commerceSearch(string keyword, List<AdBrixRmCommerceProductModel> productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceSearch", keyword, jsonDataString, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceSearchBulk", keyword, jsonDataString, timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
 		public static void commerceSearch(string keyword, List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
@@ -1301,47 +825,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-
-		public static void commerceSearch(string keyword, List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceSearch", keyword, jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceSearchBulk", keyword, jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
-
-
 		//Share
 		public static void commerceShare(AdBrixRm.SharingChannel sharingChannel, AdBrixRmCommerceProductModel productInfo) {
 			#if UNITY_EDITOR
@@ -1355,20 +838,6 @@ namespace AdBrixRmAOS {
 			#endif
 		}
 
-
-		public static void commerceShare(AdBrixRm.SharingChannel sharingChannel, AdBrixRmCommerceProductModel productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null) {
-				string jsonDataString = "[";
-				jsonDataString = jsonDataString + stringifyCommerceItem(productInfo) + "]";
-				_igaworksUnityPluginAosClass.CallStatic("commerceShare", sharingChannel.ToString(), jsonDataString, timeStamp);
-			}
-			#endif
-		}
-
-
 		public static void commerceShare(AdBrixRm.SharingChannel sharingChannel, AdBrixRmCommerceProductModel productInfo, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
@@ -1380,20 +849,6 @@ namespace AdBrixRmAOS {
 			}
 			#endif
 		}
-
-
-		public static void commerceShare(AdBrixRm.SharingChannel sharingChannel, AdBrixRmCommerceProductModel productInfo, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null) {
-				string jsonDataString = "[";
-				jsonDataString = jsonDataString + stringifyCommerceItem(productInfo) + "]";
-			_igaworksUnityPluginAosClass.CallStatic("commerceShare", sharingChannel.ToString(), jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-			}
-			#endif
-		}
-
 
 		//list view
 		public static void commerceListView(List<AdBrixRmCommerceProductModel> productInfo) {
@@ -1426,44 +881,6 @@ namespace AdBrixRmAOS {
 							}
 						}
 						_igaworksUnityPluginAosClass.CallStatic("commerceListViewBulk", jsonDataString);
-
-					}
-				}
-			}
-			#endif 
-		}
-
-
-		public static void commerceListView(List<AdBrixRmCommerceProductModel> productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceListView", jsonDataString, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceListViewBulk", jsonDataString, timeStamp);
 
 					}
 				}
@@ -1509,45 +926,6 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-
-		public static void commerceListView(List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceListView", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceListViewBulk", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif 
-		}
-
-
 		//cart view
 		public static void commerceCartView(List<AdBrixRmCommerceProductModel> productInfo) {
 			#if UNITY_EDITOR
@@ -1579,44 +957,6 @@ namespace AdBrixRmAOS {
 							}
 						}
 						_igaworksUnityPluginAosClass.CallStatic("commerceCartViewBulk", jsonDataString);
-
-					}
-				}
-			}
-			#endif 
-		}
-
-
-		public static void commerceCartView(List<AdBrixRmCommerceProductModel> productInfo, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceCartView", jsonDataString, timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceCartViewBulk", jsonDataString, timeStamp);
 
 					}
 				}
@@ -1662,45 +1002,6 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-
-		public static void commerceCartView(List<AdBrixRmCommerceProductModel> productInfo, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commerceCartView", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commerceCartViewBulk", jsonDataString, MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif 
-		}
-
-
 		public static void commercePaymentInfoAdded() {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
@@ -1709,19 +1010,12 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void commercePaymentInfoAdded(long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-			_igaworksUnityPluginAosClass.CallStatic("commercePaymentInfoAdded", timeStamp);
-			#endif 
-		}
 
-		public static void commercePaymentInfoAdded(Dictionary<string, string> extraAttr,  long timeStamp) {
+		public static void commercePaymentInfoAdded(Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID           
-			_igaworksUnityPluginAosClass.CallStatic("commercePaymentInfoAdded", MiniJson_aos.Serialize (extraAttr), timeStamp);
+			_igaworksUnityPluginAosClass.CallStatic("commercePaymentInfoAdded", MiniJson_aos.Serialize (extraAttr));
 			#endif 
 		}
 		//end of COMMERCE --
@@ -1767,43 +1061,6 @@ namespace AdBrixRmAOS {
 		}
 
 
-		public static void commonPurchase(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double discount, double deliveryCharge, AdBrixRm.PaymentMethod paymentMethod, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID 
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commonPurchase", orderId, jsonDataString, discount, deliveryCharge, paymentMethod.ToString(), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commonPurchaseBulk", orderId, jsonDataString, discount, deliveryCharge, paymentMethod.ToString(), timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
 
 		public static void commonPurchase(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double discount, double deliveryCharge, AdBrixRm.PaymentMethod paymentMethod, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
@@ -1843,44 +1100,6 @@ namespace AdBrixRmAOS {
 		}
 
 
-		public static void commonPurchase(string orderId, List<AdBrixRmCommerceProductModel> productInfo, double discount, double deliveryCharge, AdBrixRm.PaymentMethod paymentMethod, Dictionary<string, object> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID 
-			if(productInfo != null && productInfo.Count > 0) {
-				if (productInfo.Count == 1) {
-					string jsonDataString = "[";
-					jsonDataString = jsonDataString + stringifyCommerceItem(productInfo[0]) + "]";
-					_igaworksUnityPluginAosClass.CallStatic("commonPurchase", orderId, jsonDataString, discount, deliveryCharge, paymentMethod.ToString(), MiniJson_aos.Serialize (extraAttr), timeStamp);
-				} 
-				else if(productInfo.Count >= 2){
-					List<AdBrixRmCommerceProductModel> filterList = new List<AdBrixRmCommerceProductModel>();
-					for(int i  = 0, j= productInfo.Count; i < j; i++) {
-						if (productInfo [i] != null) {
-							filterList.Add (productInfo[i]);
-						}
-					}
-
-					if(filterList != null && filterList.Count > 0) {
-						string jsonDataString = "[";
-						for(int i = 0; i < filterList.Count; i++) {
-							AdBrixRmCommerceProductModel item = filterList[i];
-							if(i == (filterList.Count-1)) {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + "]";
-							}
-							else {
-								jsonDataString = jsonDataString + stringifyCommerceItem(item) + ",";		
-							}
-						}
-						_igaworksUnityPluginAosClass.CallStatic("commonPurchaseBulk", orderId, jsonDataString, discount, deliveryCharge, paymentMethod.ToString(), MiniJson_aos.Serialize (extraAttr), timeStamp);
-
-					}
-				}
-			}
-			#endif
-		}
-
-
 		public static void commonSignUp(AdBrixRm.SignUpChannel channel) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
@@ -1888,28 +1107,14 @@ namespace AdBrixRmAOS {
 				_igaworksUnityPluginAosClass.CallStatic("commonSignUp", channel.ToString());
 			#endif
 		}
-		public static void commonSignUp(AdBrixRm.SignUpChannel channel, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				_igaworksUnityPluginAosClass.CallStatic("commonSignUp", channel.ToString(), timeStamp);
-			#endif
-		}
-		public static void commonSignUp(AdBrixRm.SignUpChannel channel, Dictionary<string, string> extraAttr) {
+
+		public static void commonSignUp(AdBrixRm.SignUpChannel channel, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID    
 				_igaworksUnityPluginAosClass.CallStatic("commonSignUp", channel.ToString(), MiniJson_aos.Serialize (extraAttr));
 			#endif
 		}
-		public static void commonSignUp(AdBrixRm.SignUpChannel channel, Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				_igaworksUnityPluginAosClass.CallStatic("commonSignUp", channel.ToString(), MiniJson_aos.Serialize (extraAttr), timeStamp);
-			#endif
-		}
-
 
 		public static void commonUseCredit() {
 			#if UNITY_EDITOR
@@ -1918,25 +1123,12 @@ namespace AdBrixRmAOS {
 				_igaworksUnityPluginAosClass.CallStatic("commonUseCredit");
 			#endif
 		}
-		public static void commonUseCredit(long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				_igaworksUnityPluginAosClass.CallStatic("commonUseCredit", timeStamp);
-			#endif
-		}
-		public static void commonUseCredit(Dictionary<string, string> extraAttr) {
+
+		public static void commonUseCredit(Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID    
 				_igaworksUnityPluginAosClass.CallStatic("commonUseCredit", MiniJson_aos.Serialize (extraAttr));
-			#endif
-		}
-		public static void commonUseCredit(Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				_igaworksUnityPluginAosClass.CallStatic("commonUseCredit", MiniJson_aos.Serialize (extraAttr), timeStamp);
 			#endif
 		}
 
@@ -1949,16 +1141,8 @@ namespace AdBrixRmAOS {
 				}
 			#endif
 		}
-		public static void commonAppUpdate(string prev_ver, string curr_ver, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				if(prev_ver != null && curr_ver != null) {
-					_igaworksUnityPluginAosClass.CallStatic("commonAppUpdate", prev_ver, curr_ver, timeStamp);
-				}
-			#endif
-		}
-		public static void commonAppUpdate(string prev_ver, string curr_ver, Dictionary<string, string> extraAttr) {
+
+		public static void commonAppUpdate(string prev_ver, string curr_ver, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID
@@ -1967,16 +1151,6 @@ namespace AdBrixRmAOS {
 				}
 			#endif
 		}
-		public static void commonAppUpdate(string prev_ver, string curr_ver, Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				if(prev_ver != null && curr_ver != null) {
-					_igaworksUnityPluginAosClass.CallStatic("commonAppUpdate", prev_ver, curr_ver, MiniJson_aos.Serialize (extraAttr), timeStamp);
-				}
-			#endif
-		}
-
 
 		public static void commonInvite(AdBrixRm.InviteChannel channel) {
 			#if UNITY_EDITOR
@@ -1985,27 +1159,15 @@ namespace AdBrixRmAOS {
 				_igaworksUnityPluginAosClass.CallStatic("commonInvite", channel.ToString());
 			#endif
 		}
-		public static void commonInvite(AdBrixRm.InviteChannel channel, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				_igaworksUnityPluginAosClass.CallStatic("commonInvite", channel.ToString(), timeStamp);
-			#endif
-		}
-		public static void commonInvite(AdBrixRm.InviteChannel channel, Dictionary<string, string> extraAttr) {
+
+		public static void commonInvite(AdBrixRm.InviteChannel channel, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 				Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID    
 				_igaworksUnityPluginAosClass.CallStatic("commonInvite", channel.ToString(), MiniJson_aos.Serialize (extraAttr));
 			#endif
 		}
-		public static void commonInvite(AdBrixRm.InviteChannel channel, Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-				Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID    
-				_igaworksUnityPluginAosClass.CallStatic("commonInvite", channel.ToString(), MiniJson_aos.Serialize (extraAttr), timeStamp);
-			#endif
-		}
+
 		//end of COMMON --
 
 
@@ -2018,27 +1180,11 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void gameTutorialCompleted(bool is_skip, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-			_igaworksUnityPluginAosClass.CallStatic("gameTutorialCompleted", is_skip, timeStamp);
-			#endif 
-		}
-
-		public static void gameTutorialCompleted(bool is_skip, Dictionary<string, string> extraAttr) {
+		public static void gameTutorialCompleted(bool is_skip, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID              
 			_igaworksUnityPluginAosClass.CallStatic("gameTutorialCompleted", is_skip, MiniJson_aos.Serialize (extraAttr));
-			#endif 
-		}
-
-		public static void gameTutorialCompleted(bool is_skip, Dictionary<string, string> extraAttr,  long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID           
-			_igaworksUnityPluginAosClass.CallStatic("gameTutorialCompleted", is_skip, MiniJson_aos.Serialize (extraAttr), timeStamp);
 			#endif 
 		}
 
@@ -2051,27 +1197,12 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void gameLevelAchieved(int level, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-			_igaworksUnityPluginAosClass.CallStatic("gameLevelAchieved", level, timeStamp);
-			#endif 
-		}
 
-		public static void gameLevelAchieved(int level, Dictionary<string, string> extraAttr) {
+		public static void gameLevelAchieved(int level, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID              
 			_igaworksUnityPluginAosClass.CallStatic("gameLevelAchieved", level, MiniJson_aos.Serialize (extraAttr));
-			#endif 
-		}
-
-		public static void gameLevelAchieved(int level, Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID           
-			_igaworksUnityPluginAosClass.CallStatic("gameLevelAchieved", level, MiniJson_aos.Serialize (extraAttr), timeStamp);
 			#endif 
 		}
 
@@ -2084,27 +1215,11 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void gameCharacterCreated(long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-			_igaworksUnityPluginAosClass.CallStatic("gameCharacterCreated", timeStamp);
-			#endif 
-		}
-
-		public static void gameCharacterCreated(Dictionary<string, string> extraAttr) {
+		public static void gameCharacterCreated(Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID              
 			_igaworksUnityPluginAosClass.CallStatic("gameCharacterCreated", MiniJson_aos.Serialize (extraAttr));
-			#endif 
-		}
-
-		public static void gameCharacterCreated(Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID           
-			_igaworksUnityPluginAosClass.CallStatic("gameCharacterCreated", MiniJson_aos.Serialize (extraAttr), timeStamp);
 			#endif 
 		}
 
@@ -2126,15 +1241,8 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void gameStageCleared(string stageName, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID              
-			_igaworksUnityPluginAosClass.CallStatic("gameStageCleared", stageName, timeStamp);
-			#endif 
-		}
 
-		public static void gameStageCleared(string stageName, Dictionary<string, string> extraAttr) {
+		public static void gameStageCleared(string stageName, Dictionary<string, object> extraAttr) {
 			#if UNITY_EDITOR
 			Debug.Log("igaworks:Editor mode Connected");
 			#elif UNITY_ANDROID              
@@ -2142,13 +1250,6 @@ namespace AdBrixRmAOS {
 			#endif 
 		}
 
-		public static void gameStageCleared(string stageName, Dictionary<string, string> extraAttr, long timeStamp) {
-			#if UNITY_EDITOR
-			Debug.Log("igaworks:Editor mode Connected");
-			#elif UNITY_ANDROID           
-			_igaworksUnityPluginAosClass.CallStatic("gameStageCleared", stageName, MiniJson_aos.Serialize (extraAttr), timeStamp);
-			#endif 
-		}
 		//end of GAME --
 
 		public static string stringifyCommerceItem(AdBrixRmCommerceProductModel item) {
@@ -2159,7 +1260,7 @@ namespace AdBrixRmAOS {
 				if (item.productName == null) item.productName = "unknown";
 				if (item.currency == null) item.currency = "unknown";
 				if (item.category == null) item.category = "";
-				if (item.extraAttrsDic == null) item.extraAttrsDic = new Dictionary<String, String>();
+				if (item.extraAttrsDic == null) item.extraAttrsDic = new Dictionary<string, object>();
 
 				Dictionary<string, object> dic = new Dictionary<string, object>();
 				dic.Add("productId", item.productId);
@@ -2207,14 +1308,14 @@ namespace AdBrixRmAOS {
 			public int quantity = 1;
 			public string currency = "unknown"; //this is set already by enum....
 			public String category;
-			public Dictionary<string, string> extraAttrsDic;
+			public Dictionary<string, object> extraAttrsDic;
 
 
 			public AdBrixRmCommerceProductModel(string productId, string productName,
 				double price, int quantity, double discount, AdBrixRmAOS.AdBrixRm.Currency currency,
 				AdBrixRmCommerceProductCategoryModel category, AdBrixRmCommerceProductAttrModel attr) {
 				extraAttrsDic = null;
-				extraAttrsDic = new Dictionary<string, string>();
+				extraAttrsDic = new Dictionary<string, object>();
 				if (attr != null) {
 					for (int i = 0; i < 5; i++) {
 						if (attr.key[i] != null) {
