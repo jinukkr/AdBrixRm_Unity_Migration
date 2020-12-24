@@ -1433,15 +1433,15 @@ namespace AdBrixRmAOS {
 
 		public class AdBrixRmCommerceProductAttrModel {
 			public String[] key = new String[5];
-			public String[] value = new String[5];
+			public object[] value = new object[5];
 
 			protected AdBrixRmCommerceProductAttrModel() { }
 
-			public AdBrixRmCommerceProductAttrModel(Dictionary<string, string> attrData) {
+			public AdBrixRmCommerceProductAttrModel(Dictionary<string, object> attrData) {
 				if (attrData != null) {
 
 					int i = 0;
-					foreach (KeyValuePair<string, string> pair in attrData) {
+					foreach (KeyValuePair<string, object> pair in attrData) {
                         if (i > 4)
                         {
                             break;
@@ -1453,7 +1453,7 @@ namespace AdBrixRmAOS {
 				}
 			}
 
-			public static AdBrixRmCommerceProductAttrModel create(Dictionary<string, string> attrData) {
+			public static AdBrixRmCommerceProductAttrModel create(Dictionary<string, object> attrData) {
 				return new AdBrixRmCommerceProductAttrModel(attrData);
 			}
 		}
